@@ -15,32 +15,25 @@
 package io.pivotal.cloudcache.app.config;
 
 
-import io.pivotal.cloudcache.app.model.Pizza;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.gemfire.config.annotation.EnableEntityDefinedRegions;
-import org.springframework.data.gemfire.config.annotation.EnableLogging;
-import org.springframework.data.gemfire.config.annotation.EnablePdx;
-import org.springframework.data.gemfire.config.annotation.EnableSsl;
-import org.springframework.geode.config.annotation.EnableDurableClient;
+import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 import org.springframework.geode.config.annotation.UseMemberName;
+
+import io.pivotal.cloudcache.app.model.Pizza;
+import io.pivotal.cloudcache.app.repository.NameRepository;
 
 /**
  * This configuration is used when you start this app with !tls spring profile.
  *
  */
 @Configuration
-@EnablePdx
-@EnableDurableClient(id = "pizza-store")
 @EnableEntityDefinedRegions(basePackageClasses = Pizza.class)
-@EnableLogging
-@UseMemberName("SpringBootPivotalCloudCachePizzaStoreApplication")
-@SuppressWarnings("unused")
-public class GemFireConfiguration {
+@EnableGemfireRepositories(basePackageClasses = NameRepository.class)
+@UseMemberName("PizzaStore-API")
+@Profile("client")
+public class CloudCacheClientConfig {
 
-	@Profile("tls")
-	@Configuration
-	@EnableSsl
-	static class TlsConfiguration{}
 
 }
