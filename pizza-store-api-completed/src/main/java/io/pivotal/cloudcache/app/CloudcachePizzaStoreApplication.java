@@ -17,6 +17,8 @@ package io.pivotal.cloudcache.app;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 /**
  * This class runs the sample pizza store application.
  * This is a Pivotal Cloud Cache (PCC) client application which interacts with a PCC service instance
@@ -31,6 +33,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
+@EnableSwagger2
 public class CloudcachePizzaStoreApplication {
 
     public static void main(String[] args) {

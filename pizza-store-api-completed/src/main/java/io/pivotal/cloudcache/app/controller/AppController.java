@@ -18,8 +18,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
-import org.apache.geode.LogWriter;
-import org.apache.geode.cache.GemFireCache;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,23 +29,21 @@ import org.springframework.web.bind.annotation.RestController;
 import io.pivotal.cloudcache.app.model.Pizza;
 import io.pivotal.cloudcache.app.repository.NameRepository;
 import io.pivotal.cloudcache.app.repository.PizzaRepository;
+import lombok.extern.java.Log;
 
 /**
  * Implementation of all the REST APIs exposed by pizza store app
  */
 @RestController
-@SuppressWarnings("unused")
+@Log
 public class AppController {
-
-    private final GemFireCache gemfireCache;
 
     private final NameRepository nameRepository;
 
     private final PizzaRepository pizzaRepository;
 
-    public AppController(GemFireCache gemfireCache, NameRepository nameRepository, PizzaRepository pizzaRepository) {
+    public AppController(NameRepository nameRepository, PizzaRepository pizzaRepository) {
 
-        this.gemfireCache = gemfireCache;
         this.nameRepository = nameRepository;
         this.pizzaRepository = pizzaRepository;
     }
@@ -77,9 +73,7 @@ public class AppController {
      *
      */
     @RequestMapping("/preheatOven")
-    public ResponseEntity<Object> preheatOven() {
-
-        LogWriter logger = gemfireCache.getLogger();
+    public ResponseEntity<Object> preheatOven() {       
 
         Pizza plainPizza = makePlainPizza();
         Pizza fancyPizza = makeFancyPizza();
@@ -89,7 +83,7 @@ public class AppController {
         this.pizzaRepository.save(fancyPizza);
         this.pizzaRepository.save(superFancyPizza);
 
-        logger.info("Finished baking pizzas");
+        log.info("Finished baking pizzas");
 
         Optional<Pizza> pizza = this.pizzaRepository.findById("plain");
 
@@ -99,7 +93,7 @@ public class AppController {
 
         if (!pizza.filter(it -> it.uses(Pizza.Sauce.TOMATO)).isPresent()) {
 
-            logger.info(String.format("I ordered tomato sauce; Pizza was [%s]",
+            log.info(String.format("I ordered tomato sauce; Pizza was [%s]",
                 pizza.map(Pizza::toString).orElse(null)));
 
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -107,7 +101,7 @@ public class AppController {
 
         if (!pizza.filter(it -> it.has(Pizza.Topping.CHEESE)).isPresent()) {
 
-            logger.info(String.format("Where's my cheese? Pizza was [%s]",
+            log.info(String.format("Where's my cheese? Pizza was [%s]",
                 pizza.map(Pizza::toString).orElse(null)));
 
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

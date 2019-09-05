@@ -1,0 +1,44 @@
+## Region setup for Cloud Cache 
+
+#### Step 1: Review the Domain object ** Name.java ** and add ** @Region ** annotation
+
+```java
+
+@Region("Name")
+....
+public class Name {
+
+    @Getter @Id @NonNull
+    private final String name;
+
+}
+````
+
+#### Step 2: Review the Domain object ** Pizza.java ** and add ** @Region ** annotation
+
+```java
+
+@Region("Pizza")
+....
+public class Pizza {
+
+
+....
+}
+
+```
+
+#### Step 3: Configuring Spring Boot app with ** @EnableClusterConfiguration ** and ** @EnableEntityDefinedRegions ** to create the regions dynamically on the Cloud Cache Servers
+
+```
+@Configuration
+@EnableClusterConfiguration(useHttp = true, requireHttps = false)
+@EnableEntityDefinedRegions(basePackageClasses = Pizza.class)
+@UseMemberName("PizzaStore-API")
+@Profile("client")
+public class CloudCacheClientConfig {
+
+
+}
+
+```

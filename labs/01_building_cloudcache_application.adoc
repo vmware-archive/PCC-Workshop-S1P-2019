@@ -1,1 +1,46 @@
-### needs details on setting up the cloud cache cf cli plugin
+## Pizza Store App
+
+Let's incrementally build pizza store app which will showcase various features supported by PCC and Spring Data
+
+Note: All the boilerplate code required for this demo app has been provided in Pizza-store-initial.
+
+#### Step 1: Create Skeleton PCC Client project
+
+a. Download the ** pizza-store-api-initial ** project. For convenience we have configured the POM with required dependencies for Pivotal Cloud Cache. 
+
+Following are the dependency required for PCC and exposing the PCC repository using REST endpoints for CRUD Operations
+
+###### Pivotal Cloud Cache Dependency
+
+```
+<dependency>
+	<groupId>org.springframework.geode</groupId>
+	<artifactId>spring-geode-starter</artifactId>
+	<version>1.1.0.RELEASE</version>
+</dependency>
+
+```
+
+###### Spring Data REST Dependencies
+
+```
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-data-rest</artifactId>
+</dependency>
+
+```
+
+#### Step 2: configure PCC client with Spring Data GemFire(SDG) annotations
+
+a. Create a configuration file which transforms this boot app into PCC Client cache. `spring-geode-starter` enables autoreconfiguration support for PCC and creates PCC client connection pool.
+
+```
+@Configuration
+@UseMemberName("PizzaStore-API")
+@Profile("client")
+public class CloudCacheClientConfig {
+
+
+}
+```
