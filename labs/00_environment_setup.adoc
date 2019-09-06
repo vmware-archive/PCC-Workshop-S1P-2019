@@ -35,7 +35,7 @@ Add service-key output
 
 ```
 
-** Note **: With Spring Boot Data GemFire (SBDG) it is not necessary to create Regions using operator Tool in development mode. We will take advantage of spring annotations in our code to create regions on the server side. 
+*** Note ***: With Spring Boot Data GemFire (SBDG) it is not necessary to create Regions using operator Tool in development mode. We will take advantage of spring annotations in our code to create regions on the server side. 
 
 ## Optional
 
