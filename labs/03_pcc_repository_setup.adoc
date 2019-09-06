@@ -1,6 +1,6 @@
 ## Spring Data Repository setup for PCC
 
-#### Step 1: Create a new package `io.pivotal.cloudcache.app.repo` and implement GemFire repositories for **_Name_** and **_Pizza_** domain objects
+***Step 1:*** Create a new package `io.pivotal.cloudcache.app.repo` and implement GemFire repositories for **_Name_** and **_Pizza_** domain objects
 
 ```
 package io.pivotal.cloudcache.app.repository;
@@ -22,7 +22,7 @@ public interface PizzaRepository extends CrudRepository<Pizza, String> {
 
 ```
 
-#### Step 3: configuring spring boot app with **_@EnableGemfireRepositories_** to enable Cloud Cache repositories
+***Step 2:*** configuring spring boot app with **_@EnableGemfireRepositories_** to enable Cloud Cache repositories
 
 @EnableGemfireRepositories annotation configures the client to create Spring Data GemFire repositories for all the domain objects annotated with @Region
 
