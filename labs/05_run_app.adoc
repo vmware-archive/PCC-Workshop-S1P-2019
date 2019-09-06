@@ -1,0 +1,112 @@
+## Deploy Pizza Store App on PCF
+
+#### Step 1: create a manifest.yml for deploying the app on to PCF. We need to bind this app to PCC service pre-created in your org/space.
+
+```
+---
+applications:
+- name: cloudcache-pizza-store
+  path: target/cloudcache-pizza-store-1.0.0-SNAPSHOT.jar
+  buildpack: java_buildpack_offline
+  services:
+  - workshop-pcc
+```
+
+#### Step 2: Deploy the app on PCF
+
+```
+cf push
+```
+
+## Run the Pizza Store App
+
+### Access REST API endpoints using Swagger
+
+All REST API endpoints are accessible using HTTP GET.  This is not very RESTful, but is convenient
+when accessing this app from your Web browser.
+
+Run the command:
+
+```
+$ cf apps
+```
+
+to acquire your app's APP-URL.
+Use the APP-URL with the following endpoints:
+
+- APP-URL/swagger-ui
+<add Screenshot>
+
+- `GET /ping`
+
+    Responds with an HTTP status code of `200 - OK` and an HTTP message body
+    of "PONG!" if the app is running correctly.
+
+    ```
+    $ curl -k https://APP-URL/ping
+    ```
+
+- `GET /preheatOven`
+
+    Loads the `Pizza` region with three pre-defined pizzas.
+    This REST API endpoint calls `Repository.save()` for each pizza
+    and verifies the pizzas with the `Repository.findById(..)` on the
+    `Pizza` region to verify that everything was setup properly.
+    It creates these pizzas:
+
+    1. tomato sauce and a cheese topping
+    2. Alfredo sauce, and chicken and arugula toppings
+    3. pesto sauce, and chicken, cherry tomatoes and parmesan cheese toppings
+ 
+    Responds with an HTTP message body of "OVEN HEATED!".
+
+    ```
+    $ curl -k https://APP-URL/preheatOven
+    ```
+
+- `GET /pizzas`
+
+    Lists the current contents of the `Pizza` region, formatted as
+    a JSON array containing `Pizza` objects.
+    Returns "No Pizzas Found" if the region is empty.
+
+    ```
+    $ curl -k https://APP-URL/pizzas
+    ```
+
+- `GET /pizzas/{name}`
+     
+    Returns the pizza with the given name in JSON form.
+    Returns "Pizza \[name\] Not Found"
+    if no pizza with the given name exists.
+
+    ```
+    curl -k https://APP-URL/pizzas/plain
+    ```
+
+- `GET /pizzas/order/{name}\[?sauce=<sauce>\[&toppings=\<topping-1>,\<topping-2>,...,\<topping-N>]]`
+
+    Bakes a pizza of the user's specification,
+    with an optional `sauce` (defaults to `TOMATO`)
+    and optional `toppings` (defaults to `CHEESE`):
+
+    ```
+    curl -k https://APP-URL/pizzas/order/myCustomPizza?sauce=MARINARA&toppings=CHEESE,PEPPERONI,MUSHROOM
+    ```
+
+- `GET /pizzas/pestoOrder/{name}`
+
+    Bakes a pesto sauce pizza with chicken, cherry tomatoes, and parmesan
+    cheese toppings.
+
+    ```
+    curl -k https://APP-URL/pizzas/pestoOrder/myPestoPizza
+    ```
+
+- `GET /cleanSlate`
+
+    Removes all data from the `Pizza` and `Name` regions.
+
+    ```
+    $  curl -k https://APP-URL/cleanSlate
+    ```

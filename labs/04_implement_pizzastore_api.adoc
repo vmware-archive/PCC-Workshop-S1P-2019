@@ -1,0 +1,86 @@
+## Implement Pizza Store APIs
+
+***Controller Implementation:*** Create a REST controller `AppController.java`. All the necessary repositories which we created in earlier steps need to be Autowired in this controller
+
+```java
+@RestController
+@Log
+public class AppController {
+
+    private final NameRepository nameRepository;
+
+    private final PizzaRepository pizzaRepository;
+
+    public AppController(NameRepository nameRepository, PizzaRepository pizzaRepository) {
+
+        this.nameRepository = nameRepository;
+        this.pizzaRepository = pizzaRepository;
+    }
+
+}
+```
+
+***API 1:*** Implement **_/pizzas/order_** for odering new Pizzas
+
+In this controller, we'll be using ***pizzaRepository.save()*** method for writing data into Pizza region
+
+```java
+@GetMapping("/pizzas/order/{name}")
+public String order(@PathVariable("name") String name,
+        @RequestParam(name = "sauce", defaultValue = "TOMATO") Pizza.Sauce pizzaSauce,
+        @RequestParam(name = "toppings", defaultValue = "CHEESE") Pizza.Topping[] toppings) {
+
+    Pizza namedPizza = Pizza.named(name).having(pizzaSauce);
+
+    Arrays.stream(toppings).forEach(namedPizza::with);
+
+    this.pizzaRepository.save(namedPizza);
+
+    return String.format("<h1>Pizza [%s] Ordered</h1>", namedPizza);
+}
+```
+
+***API 2:*** Implement **_/pizzas_** API to return all Pizzas
+
+In this controller, we'll be using ***pizzaRepository.findAll()*** to get all values in Pizza region
+
+```java
+@GetMapping("/pizzas")
+public Object getPizzas() {
+
+    Iterable<Pizza> pizzas = this.pizzaRepository.findAll();
+
+    return nullSafeIterable(pizzas).iterator().hasNext() ? pizzas : "<h1>No Pizzas Found</h1>";
+}
+```
+
+*** API 3:*** Implement **_/pizzas/{name}_** API to return a given Pizza by Name
+
+In this controller, we'll be using ***pizzaRepository.findById()*** to get data stored in key/value pair from Pizza region
+
+```java
+@GetMapping("/pizzas/{name}")
+public Object getNamedPizza(@PathVariable("name") String pizzaName) {
+
+    Pizza namedPizza = this.pizzaRepository.findById(pizzaName).orElse(null);
+
+    return namedPizza != null ? namedPizza : String.format("<h1>Pizza [%s] Not Found</h1>", pizzaName);
+}
+
+```
+
+*** API 4:*** Implement **_/cleanSlate** API to clear all data in the region
+
+In this controller, we'll be using ***pizzaRepository.deleteAll()*** to get delete all the key value pairs from the Pizza Region
+
+```java
+@GetMapping("/cleanSlate")
+public String cleanSlate() {
+
+    this.pizzaRepository.deleteAll();
+
+    return "<h1>OVEN EMPTY!</h1>";
+}
+```
+
+***Note:*** Implementation for additional REST APIs for ping(), preheatOven(), pestoOrder(String) are supplied in the initial project
