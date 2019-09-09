@@ -6,7 +6,7 @@ Note: All the boilerplate code required for this demo app has been provided in P
 
 #### Step 1: Create Skeleton PCC Client project
 
-a. Download the ** pizza-store-api-initial ** project. For convenience we have configured the POM with required dependencies for Pivotal Cloud Cache. 
+Download the ***pizza-store-api-initial*** project. For convenience we have configured the POM with required dependencies for Pivotal Cloud Cache. 
 
 Following are the dependency required for PCC and exposing the PCC repository using REST endpoints for CRUD Operations
 
@@ -31,9 +31,9 @@ Following are the dependency required for PCC and exposing the PCC repository us
 
 ```
 
-#### Step 2: configure PCC client with Spring Data GemFire(SDG) annotations
+#### Step 2: configure PCC client with Spring Boot Data GemFire(SBDG) annotations
 
-a. Create a configuration file which transforms this boot app into PCC Client cache. `spring-geode-starter` enables autoreconfiguration support for PCC and creates PCC client connection pool.
+Create a configuration file which transforms this boot app into PCC Client cache. `spring-geode-starter` enables autoreconfiguration support for PCC and creates PCC client connection pool.
 
 ```
 @Configuration

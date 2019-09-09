@@ -1,0 +1,42 @@
+### Setup PCC Cli (GFSH)
+
+Download the Cli from PivNet - https://network.pivotal.io. Version of software Pivotal GemFire 9.8.3
+
+For Mac Users: `brew install gemfire@9.8`
+
+## Setup local PCC instance using GFSH
+
+Start `gfsh` on Local Workstation (Windows or Mac) and run the following commands to setup local working environment - 
+
+#### Start gfsh
+
+```
+gfsh
+```
+
+#### Step 1: Start a locator
+
+```
+gfsh> start locator
+```
+
+#### Step 2: Start a Cache Server
+
+```
+gfsh> start server
+```
+
+
+## Running Pizza Store App on local workspace
+
+#### Start the app by running the following command using `local` profile
+
+```
+./mvnw spring-boot:run -Dspring.profiles.active=local,client
+```
+
+## Shutdown local cluster
+
+```
+gfsh> shutdown --include-locators=true
+```
