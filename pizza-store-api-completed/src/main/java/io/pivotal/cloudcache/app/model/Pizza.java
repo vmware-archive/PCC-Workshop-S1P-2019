@@ -16,6 +16,7 @@ package io.pivotal.cloudcache.app.model;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 
@@ -34,6 +35,19 @@ public class Pizza {
 
     private static final Sauce DEFAULT_SAUCE = Sauce.TOMATO;
 
+//    public static final Set<String> VEGETABLE_TOPPINGS = new HashSet<>(Arrays.asList(SET_VALUES));
+    public static final String[] VEGETABLE_TOPPINGS = new String[] { Topping.ARUGULA.name(),
+            Topping.BANANA_PEPPERS.name(),
+            Topping.BLACK_OLIVES.name(),
+            Topping.CHERRY_TOMATOES.name(),
+            Topping.GREEN_OLIVES.name(),
+            Topping.GREEN_PEPPERS.name(),
+            Topping.JALAPENO.name(),
+            Topping.MUSHROOM.name(),
+            Topping.ONIONS.name() };
+    private static final Set<String> vegetableToppings = new HashSet<>(Arrays.asList<String>(
+    		VEGETABLE_TOPPINGS));
+    
     @Getter
     private Set<Topping> toppings = new HashSet<>();
 
@@ -71,6 +85,14 @@ public class Pizza {
             getName(), getSauce(), Arrays.toString(getToppings().toArray()));
     }
 
+    public Boolean isVeggie() {
+        
+    	Iterator toppingsIterator = toppings.iterator();
+    	toppingsIterator.forEachRemaining(topping -> {
+    		VEGETABLE_TOPPINGS.contains(topping.name());
+    	}
+    }
+
     public enum Sauce {
 
         ALFREDO,
@@ -89,7 +111,6 @@ public class Pizza {
         BACON,
         BANANA_PEPPERS,
         BLACK_OLIVES,
-        CHEESE,
         CHERRY_TOMATOES,
         CHICKEN,
         GREEN_OLIVES,
