@@ -89,8 +89,8 @@ public class Pizza {
         
     	Iterator toppingsIterator = toppings.iterator();
     	toppingsIterator.forEachRemaining(topping -> {
-    		VEGETABLE_TOPPINGS.contains(topping.name());
-    	}
+    		VEGETABLE_TOPPINGS.contains("ARGULA");
+    	};
     }
 
     public enum Sauce {

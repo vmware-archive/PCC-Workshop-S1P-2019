@@ -14,11 +14,22 @@
 
 package io.pivotal.cloudcache.app.repository;
 
+import java.util.List;
+
+import org.springframework.data.gemfire.repository.Query;
+import org.springframework.data.gemfire.repository.query.annotation.Hint;
+import org.springframework.data.gemfire.repository.query.annotation.Limit;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import io.pivotal.cloudcache.app.model.Pizza;
+import io.pivotal.data.domain.PizzaOrder;
 
 @Repository
 public interface PizzaRepository extends CrudRepository<Pizza, String> {
+	@Limit(10)
+	@Hint("CustomerEmailIndex")
+	@Query("SELECT * FROM /pizza p WHERE p.toppings in customerInfo.email = $1" )
+	List<PizzaOrder> findPizzaOrderByEmailId(String emailId);
+
 }
