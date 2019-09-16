@@ -23,13 +23,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import io.pivotal.cloudcache.app.model.Pizza;
-import io.pivotal.data.domain.PizzaOrder;
 
 @Repository
 public interface PizzaRepository extends CrudRepository<Pizza, String> {
 	@Limit(10)
 	@Hint("CustomerEmailIndex")
 	@Query("SELECT * FROM /pizza p WHERE p.toppings in customerInfo.email = $1" )
-	List<PizzaOrder> findPizzaOrderByEmailId(String emailId);
+	List<Pizza> findPizzaOrderByEmailId(String emailId);
 
 }

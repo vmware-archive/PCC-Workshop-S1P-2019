@@ -45,9 +45,10 @@ public class Pizza {
             Topping.JALAPENO.name(),
             Topping.MUSHROOM.name(),
             Topping.ONIONS.name() };
+/*    
     private static final Set<String> vegetableToppings = new HashSet<>(Arrays.asList<String>(
     		VEGETABLE_TOPPINGS));
-    
+*/    
     @Getter
     private Set<Topping> toppings = new HashSet<>();
 
@@ -84,7 +85,7 @@ public class Pizza {
         return String.format("%1$s Pizza having %2$s Sauce with Toppings %3$s",
             getName(), getSauce(), Arrays.toString(getToppings().toArray()));
     }
-
+/*
     public Boolean isVeggie() {
         
     	Iterator toppingsIterator = toppings.iterator();
@@ -92,7 +93,7 @@ public class Pizza {
     		VEGETABLE_TOPPINGS.contains("ARGULA");
     	};
     }
-
+*/
     public enum Sauce {
 
         ALFREDO,
@@ -121,6 +122,7 @@ public class Pizza {
         PARMESAN,
         PEPPERONI,
         SAUSAGE,
+        CHEESE,
 
     }
 }
