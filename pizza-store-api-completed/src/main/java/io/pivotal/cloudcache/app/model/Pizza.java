@@ -16,7 +16,7 @@ package io.pivotal.cloudcache.app.model;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -28,15 +28,14 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@Region("Pizza")
 @RequiredArgsConstructor(staticName = "named")
 @EqualsAndHashCode(of = { "name", "sauce", "toppings"})
+@Region("Pizza")
 public class Pizza {
 
     private static final Sauce DEFAULT_SAUCE = Sauce.TOMATO;
 
-//    public static final Set<String> VEGETABLE_TOPPINGS = new HashSet<>(Arrays.asList(SET_VALUES));
-    public static final String[] VEGETABLE_TOPPINGS = new String[] { Topping.ARUGULA.name(),
+    public static final List<String> VEGETABLE_TOPPINGS = Arrays.asList(Topping.ARUGULA.name(),
             Topping.BANANA_PEPPERS.name(),
             Topping.BLACK_OLIVES.name(),
             Topping.CHERRY_TOMATOES.name(),
@@ -44,11 +43,10 @@ public class Pizza {
             Topping.GREEN_PEPPERS.name(),
             Topping.JALAPENO.name(),
             Topping.MUSHROOM.name(),
-            Topping.ONIONS.name() };
-/*    
-    private static final Set<String> vegetableToppings = new HashSet<>(Arrays.asList<String>(
-    		VEGETABLE_TOPPINGS));
-*/    
+            Topping.ONIONS.name() );
+    
+    private static final Set<String> vegetableToppings = new HashSet<>(VEGETABLE_TOPPINGS);
+    
     @Getter
     private Set<Topping> toppings = new HashSet<>();
 
@@ -85,15 +83,11 @@ public class Pizza {
         return String.format("%1$s Pizza having %2$s Sauce with Toppings %3$s",
             getName(), getSauce(), Arrays.toString(getToppings().toArray()));
     }
-/*
-    public Boolean isVeggie() {
-        
-    	Iterator toppingsIterator = toppings.iterator();
-    	toppingsIterator.forEachRemaining(topping -> {
-    		VEGETABLE_TOPPINGS.contains("ARGULA");
-    	};
-    }
-*/
+
+    public Boolean isVeggie(Topping topping) {
+         return vegetableToppings.contains(topping.name());
+     }
+
     public enum Sauce {
 
         ALFREDO,
