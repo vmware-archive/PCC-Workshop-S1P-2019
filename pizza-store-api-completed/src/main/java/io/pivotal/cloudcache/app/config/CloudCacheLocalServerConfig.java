@@ -13,7 +13,7 @@ import org.springframework.data.gemfire.config.annotation.EnablePdx;
 @CacheServerApplication(name = "BootGemFireServerApplication")
 @EnableLocator
 @EnableManager
-@EnablePdx
+@EnablePdx(readSerialized=true)
 @Profile("server")
 @Configuration
 public class CloudCacheLocalServerConfig {
