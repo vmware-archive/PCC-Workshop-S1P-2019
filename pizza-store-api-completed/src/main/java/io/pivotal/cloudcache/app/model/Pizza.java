@@ -22,18 +22,12 @@ import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.gemfire.mapping.annotation.Region;
+import org.springframework.lang.NonNull;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor(staticName = "named")
-@EqualsAndHashCode(of = { "name", "sauce", "toppings"})
 @Region("Pizza")
 public class Pizza {
 
-    private static final Sauce DEFAULT_SAUCE = Sauce.TOMATO;
+ 	private static final Sauce DEFAULT_SAUCE = Sauce.TOMATO;
 
     public static final List<String> VEGETABLE_TOPPINGS = Arrays.asList(Topping.ARUGULA.name(),
             Topping.BANANA_PEPPERS.name(),
@@ -46,15 +40,60 @@ public class Pizza {
             Topping.ONIONS.name() );
     
     private static final Set<String> vegetableToppings = new HashSet<>(VEGETABLE_TOPPINGS);
-    
-    @Getter
+
+    @Id
+    @NonNull private String name = "";
+    private Sauce sauce = DEFAULT_SAUCE;
     private Set<Topping> toppings = new HashSet<>();
 
-    @Getter @Id @NonNull
-    private final String name;
+    private Pizza(String name) {
+        if (name == null) throw new NullPointerException("name cannot be null");
+		this.name = name;
+      }
+      
+    public static Pizza named(String name) {
+        return new Pizza(name);
+      }
+      
+    public Set<Topping> getToppings() {
+		return toppings;
+	}
 
-    @Getter
-    private Sauce sauce = DEFAULT_SAUCE;
+	public void setToppings(Set<Topping> toppings) {
+		this.toppings = toppings;
+	}
+
+	public Sauce getSauce() {
+		return sauce;
+	}
+
+	public void setSauce(Sauce sauce) {
+		this.sauce = sauce;
+	}
+
+	public static Sauce getDefaultSauce() {
+		return DEFAULT_SAUCE;
+	}
+
+	public static List<String> getVegetableToppings() {
+		return VEGETABLE_TOPPINGS;
+	}
+
+	public static Set<String> getVegetabletoppings() {
+		return vegetableToppings;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public String getId() {
+		return name;
+	}
+
+	public void setId(String id) {
+		this.name = id;
+	}
 
     public boolean has(Topping topping) {
         return this.toppings.contains(topping);
@@ -77,7 +116,11 @@ public class Pizza {
         return this;
     }
 
-    @Override
+    public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
     public String toString() {
 
         return String.format("%1$s Pizza having %2$s Sauce with Toppings %3$s",
@@ -87,6 +130,41 @@ public class Pizza {
     public Boolean isVeggie(Topping topping) {
          return vegetableToppings.contains(topping.name());
      }
+    
+    @Override
+ 	public int hashCode() {
+ 		final int prime = 31;
+ 		int result = 1;
+ 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+ 		result = prime * result + ((sauce == null) ? 0 : sauce.hashCode());
+ 		result = prime * result + ((toppings == null) ? 0 : toppings.hashCode());
+ 		return result;
+ 	}
+
+ 	@Override
+ 	public boolean equals(Object obj) {
+ 		if (this == obj)
+ 			return true;
+ 		if (obj == null)
+ 			return false;
+ 		if (getClass() != obj.getClass())
+ 			return false;
+ 		Pizza other = (Pizza) obj;
+ 		if (name == null) {
+ 			if (other.name != null)
+ 				return false;
+ 		} else if (!name.equals(other.name))
+ 			return false;
+ 		if (sauce != other.sauce)
+ 			return false;
+ 		if (toppings == null) {
+ 			if (other.toppings != null)
+ 				return false;
+ 		} else if (!toppings.equals(other.toppings))
+ 			return false;
+ 		return true;
+ 	}
+
 
     public enum Sauce {
 

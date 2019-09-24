@@ -29,15 +29,14 @@ import org.springframework.web.bind.annotation.RestController;
 import io.pivotal.cloudcache.app.model.Pizza;
 import io.pivotal.cloudcache.app.repository.NameRepository;
 import io.pivotal.cloudcache.app.repository.PizzaRepository;
-import lombok.extern.java.Log;
 
 /**
  * Implementation of all the REST APIs exposed by pizza store app
  */
 @RestController
-@Log
 public class AppController {
-
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AppController.class);
+	  
     private final NameRepository nameRepository;
 
     private final PizzaRepository pizzaRepository;
