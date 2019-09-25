@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>io.pivotal.data</groupId>
-	<artifactId>pizza-store-api-completed</artifactId>
+	<artifactId>cloud-cache-local-instance</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pizza-store-api-completed</name>
+	<name>cloud-cache-local-instance</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -27,19 +27,6 @@
 			<groupId>org.springframework.geode</groupId>
 			<artifactId>spring-cloudcache-starter</artifactId>
 			<version>1.2.0.M3</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-geode-test</artifactId>
-			<version>0.0.8.RELEASE</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.data</groupId>
-					<artifactId>spring-data-geode</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -76,6 +63,7 @@
 			<url>https://repo.spring.io/libs-release</url>
 		</repository>
 	</repositories>
+	
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-milestones</id>
