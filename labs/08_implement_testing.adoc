@@ -100,8 +100,7 @@ In addition to property names from the Region you can exercise methods like put,
 	}
 ```	
 
-#### Step 6: Now if you are in an IDE you can execute the junit test from within the test class.  Or you can
-rebuild the application with mvn and see the results of executing the test cases. It should look something like
+#### Step 6: Now if you are in an IDE you can execute the junit test from within the test class.  Or you can rebuild the application with mvn and see the results of executing the test cases. It should look something like:
 
 ```
 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.324 s - in io.pivotal.data.pizzastoreapi.PizzaStoreApiApplicationTests
