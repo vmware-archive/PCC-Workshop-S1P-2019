@@ -15,8 +15,6 @@
 		</dependency>
 ```
 
-```
-
 #### Step 2: Implement the test class under src/test/java in the io.pivotal.data.pizzastoreapi package with the required resources
 and the default test method that comes from the project generation. 
 
