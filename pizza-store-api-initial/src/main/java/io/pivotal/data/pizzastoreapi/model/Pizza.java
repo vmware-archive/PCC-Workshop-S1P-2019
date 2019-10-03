@@ -20,16 +20,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.gemfire.mapping.annotation.Region;
-import org.springframework.lang.NonNull;
 
-@Region("Pizza")
 public class Pizza {
 
 	private static final Sauce DEFAULT_SAUCE = Sauce.TOMATO;
 
 	@Id
-	@NonNull
 	private String name = "";
 	private Sauce sauce = DEFAULT_SAUCE;
 	private Set<Topping> toppings = new HashSet<>();

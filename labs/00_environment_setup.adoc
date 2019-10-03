@@ -1,31 +1,31 @@
 ## Environment Setup
 
-### Create PCC Instance
+### Create Cloud Cache Instance
 Services can be created through Apps Manager Marketplace or by executing cf cli commands
 
-###### Display available PCC plans
+###### Display available Cloud Cache plans
 
 ```
 cf marketplace -s p-cloudcache
 ```
 
-###### Step 1: Validate PCC service instance is pre created in your org/space
+###### Step 1: Validate Cloud Cache service instance is pre created in your org/space
 
 ```
-cf service s1p-workshop-pcc
+cf service s1p-workshop-cloudcache
 
 ```
 
 ###### Step 2: Create service key for retrieving connection information for GFSH cli
 
 ```
-cf create-service-key s1p-workshop-pcc devkey
+cf create-service-key s1p-workshop-cloudcache devkey
 ```
 
-###### Step 3: Retrieve url for PCC cli (GFSH) and corresponding credentials
+###### Step 3: Retrieve url for Cloud Cache cli (GFSH) and corresponding credentials
 
 ```
-cf service-key workshop-pcc devkey
+cf service-key s1p-workshop-cloudcache devkey
 ```
 
 ###### Step 4: Retrieve Management Dashboard URL (Pulse) of cloud-cache instance from Service key and use the Operator credentials for logging into the Dashboard
@@ -35,30 +35,30 @@ Add service-key output
 
 ```
 
-***Note***: With Spring Boot Data GemFire (SBDG) it is not necessary to create Regions using operator Tool in development mode. We will take advantage of spring annotations in our code to create regions on the server side. 
+***Note***: With Spring Boot Data Cloud Cache, it is not necessary to create Regions using operator Tool in development mode. We will take advantage of spring annotations in our code to create regions on the server side. 
 
 ## Optional
 
-### Setup PCC Cli (GFSH)
+### Setup Cloud Cache Cli (GFSH)
 
 Download the Cli from PivNet - https://network.pivotal.io. Version of software Pivotal GemFire 9.8.3
 
 
-Note: Version of PCC Cli needs to match that of PCC Cluster.
+Note: Version of Cloud Cache Cli needs to match that of Cloud Cache Cluster.
 
-###### Step 1: Login into to PCC cli (GFSH) using connection information from service key
+###### Step 1: Login into to Cloud Cache cli (GFSH) using connection information from service key
 
 ```
 connect --use-http=true --url=https://<gfsh-url> --skip-ssl-validation --user=cluster_operator --password=*******
 ```
 
-Note: If `go-router` is configured only to use https connection. PCC Cli will ask for SSL/TLS information. If using Public certs, we can skip providing keystore and truststore information.
+Note: If `go-router` is configured only to use https connection. Cloud Cache Cli will ask for SSL/TLS information. If using Public certs, we can skip providing keystore and truststore information.
 
-###### Step 2: create PCC regions on cluster
+###### Step 2: create Cloud Cache regions on cluster
 
 ```
-create region --name=customer --type=PARTITION_REDUNDANT
-create region --name=pizza_orders --type=PARTITION_REDUNDANT
+create region --name=Pizza --type=PARTITION_REDUNDANT
+create region --name=Name --type=PARTITION_REDUNDANT
 ```
 
 ###### Step 3: Access pulse using connection information from service key 

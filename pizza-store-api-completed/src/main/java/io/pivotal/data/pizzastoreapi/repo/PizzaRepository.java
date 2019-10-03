@@ -17,18 +17,15 @@ package io.pivotal.data.pizzastoreapi.repo;
 import java.util.List;
 
 import org.springframework.data.gemfire.repository.Query;
-import org.springframework.data.gemfire.repository.query.annotation.Hint;
-import org.springframework.data.gemfire.repository.query.annotation.Limit;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import io.pivotal.data.pizzastoreapi.model.Pizza;
 
-@Repository
+@RepositoryRestResource
 public interface PizzaRepository extends CrudRepository<Pizza, String> {
-	@Limit(10)
-	@Hint("CustomerEmailIndex")
-	@Query("SELECT * FROM /pizza p WHERE p.toppings in customerInfo.email = $1" )
-	List<Pizza> findPizzaOrderByEmailId(String emailId);
+	
+	@Query("SELECT * FROM /Pizza p WHERE p.sauce.name = $1" )
+	List<Pizza> findPizzasBySauceType(String sauce);
 
 }

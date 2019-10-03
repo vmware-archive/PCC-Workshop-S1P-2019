@@ -1,15 +1,10 @@
 ## Deploy Pizza Store App on PCF
 
-#### Step 1: create a manifest.yml for deploying the app on to PCF. We need to bind this app to PCC service pre-created in your org/space.
+#### Step 1: build the project
 
 ```
----
-applications:
-- name: cloudcache-pizza-store
-  path: target/cloudcache-pizza-store-1.0.0-SNAPSHOT.jar
-  buildpack: java_buildpack_offline
-  services:
-  - workshop-pcc
+./mvnw clean package
+
 ```
 
 #### Step 2: Deploy the app on PCF
@@ -33,9 +28,6 @@ $ cf apps
 
 to acquire your app's APP-URL.
 Use the APP-URL with the following endpoints:
-
-- APP-URL/swagger-ui
-<add Screenshot>
 
 - `GET /ping`
 
@@ -92,21 +84,4 @@ Use the APP-URL with the following endpoints:
 
     ```
     curl -k https://APP-URL/pizzas/order/myCustomPizza?sauce=MARINARA&toppings=CHEESE,PEPPERONI,MUSHROOM
-    ```
-
-- `GET /pizzas/pestoOrder/{name}`
-
-    Bakes a pesto sauce pizza with chicken, cherry tomatoes, and parmesan
-    cheese toppings.
-
-    ```
-    curl -k https://APP-URL/pizzas/pestoOrder/myPestoPizza
-    ```
-
-- `GET /cleanSlate`
-
-    Removes all data from the `Pizza` and `Name` regions.
-
-    ```
-    $  curl -k https://APP-URL/cleanSlate
     ```

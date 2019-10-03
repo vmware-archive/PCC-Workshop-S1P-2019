@@ -16,7 +16,6 @@ package io.pivotal.data.pizzastoreapi.config;
 
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.gemfire.config.annotation.EnableClusterConfiguration;
 import org.springframework.data.gemfire.config.annotation.EnableEntityDefinedRegions;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
@@ -34,7 +33,6 @@ import io.pivotal.data.pizzastoreapi.repo.NameRepository;
 @EnableEntityDefinedRegions(basePackageClasses = Pizza.class)
 @EnableGemfireRepositories(basePackageClasses = NameRepository.class)
 @UseMemberName("PizzaStore-API")
-@Profile("Cloud")
 public class CloudCacheClientConfig {
 
 

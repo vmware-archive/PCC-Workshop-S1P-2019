@@ -17,13 +17,13 @@ gfsh
 #### Step 1: Start a locator
 
 ```
-gfsh> start locator
+gfsh> start locator --name=locator
 ```
 
 #### Step 2: Start a Cache Server
 
 ```
-gfsh> start server
+gfsh> start server --name=server
 ```
 
 
@@ -32,7 +32,13 @@ gfsh> start server
 #### Start the app by running the following command using `local` profile
 
 ```
-./mvnw spring-boot:run -Dspring.profiles.active=local,client
+java -jar target/pizza-store-api-completed-0.0.1-SNAPSHOT.jar
+```
+
+or
+
+```
+./mvnw spring-boot:run
 ```
 
 ## Shutdown local cluster

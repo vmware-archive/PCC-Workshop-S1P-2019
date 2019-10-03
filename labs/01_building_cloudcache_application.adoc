@@ -1,39 +1,38 @@
 ## Pizza Store App
 
-Let's incrementally build pizza store app which will showcase various features supported by PCC and Spring Data
+Let's incrementally build pizza store app which will showcase various features supported by Cloud Cache and Spring Data
 
 Note: All the boilerplate code required for this demo app has been provided in Pizza-store-initial.
 
-#### Step 1: Create Skeleton PCC Client project
+#### Step 1: Create Skeleton Cloud Cache Client project
 
 Download the ***pizza-store-api-initial*** project. For convenience we have configured the POM with required dependencies for Pivotal Cloud Cache. 
 
-Following are the dependency required for PCC and exposing the PCC repository using REST endpoints for CRUD Operations
+Following are the dependency required for connecting to Cloud Cache and to enable unit test support
 
 ###### Pivotal Cloud Cache Dependency
 
 ```
 <dependency>
 	<groupId>org.springframework.geode</groupId>
-	<artifactId>spring-geode-starter</artifactId>
-	<version>1.1.0.RELEASE</version>
+	<artifactId>spring-cloudcache-starter</artifactId>
 </dependency>
 
 ```
 
-###### Spring Data REST Dependencies
+###### Pivotal Cloud Cache Test Dependency
 
 ```
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-data-rest</artifactId>
+	<groupId>org.springframework.data</groupId>
+	<artifactId>spring-data-geode-test</artifactId>
 </dependency>
 
 ```
 
-#### Step 2: configure PCC client with Spring Boot Data GemFire(SBDG) annotations
+#### Step 2: configure Cloud Cache client with Spring Boot Data GemFire(SBDG) annotations
 
-Create a configuration file which transforms this boot app into PCC Client cache. `spring-geode-starter` enables autoreconfiguration support for PCC and creates PCC client connection pool.
+Create a configuration file which transforms this boot app into Cloud Cache Client cache. `spring-geode-starter` enables autoreconfiguration support for Cloud Cache and creates Cloud Cache client connection pool.
 
 ```
 @Configuration
