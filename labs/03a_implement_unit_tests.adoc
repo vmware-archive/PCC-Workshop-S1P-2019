@@ -1,6 +1,6 @@
 ## Implement TDD with Spring Test Framework for Apache Geode & Pivotal GemFire
 
-#### Step 1: Let's implement STDG with by adjusting our pom.xml to include the required dependency.
+***Step 1:*** Let's implement STDG with by adjusting our pom.xml to include the required dependency.
 ```		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-geode-test</artifactId>
@@ -15,7 +15,7 @@
 		</dependency>
 ```
 
-#### Step 2: Implement the test class under src/test/java in the io.pivotal.data.pizzastoreapi package with the required resources
+***Step 2:*** Implement the test class under src/test/java in the io.pivotal.data.pizzastoreapi package with the required resources
 and the default test method that comes from the project generation. 
 
 ```
@@ -38,7 +38,7 @@ class PizzaStoreApiApplicationTests {
 }
 ```
 
-#### Step 3: We will assert that the cache is configured correctly.
+***Step 3:*** We will assert that the cache is configured correctly.
 ```
 	@Test
 	public void clientCacheIsMocked() {
@@ -56,7 +56,7 @@ class PizzaStoreApiApplicationTests {
 	}
 ```
 
-### Step 4: We will test that our region has been problably configured and basic functions work.
+***Step 4:*** We will test that our region has been problably configured and basic functions work.
 In addition to property names from the Region you can exercise methods like put, get, containsKey, getEntry, etc.
 
 ```
@@ -81,7 +81,7 @@ In addition to property names from the Region you can exercise methods like put,
 ```
 
 
-#### Step 5: Finally we'll test our configuration by creating a Bean for our region and configuring our cache.
+***Step 5:*** Finally we'll test our configuration by creating a Bean for our region and configuring our cache.
 ```	@ClientCacheApplication
 	@EnableGemFireMockObjects
 	static class TestConfiguration {
@@ -100,7 +100,7 @@ In addition to property names from the Region you can exercise methods like put,
 	}
 ```	
 
-#### Step 6: Now if you are in an IDE you can execute the junit test from within the test class.  Or you can rebuild the application with mvn and see the results of executing the test cases. It should look something like:
+***Step 6:*** Now if you are in an IDE you can execute the junit test from within the test class.  Or you can rebuild the application with mvn and see the results of executing the test cases. It should look something like:
 
 ```
 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.324 s - in io.pivotal.data.pizzastoreapi.PizzaStoreApiApplicationTests

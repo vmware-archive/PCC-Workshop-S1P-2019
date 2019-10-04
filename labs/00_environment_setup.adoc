@@ -9,26 +9,26 @@ Services can be created through Apps Manager Marketplace or by executing cf cli 
 cf marketplace -s p-cloudcache
 ```
 
-###### Step 1: Validate Cloud Cache service instance is pre created in your org/space
+***Step 1:*** Validate Cloud Cache service instance is pre created in your org/space
 
 ```
 cf service s1p-workshop-cloudcache
 
 ```
 
-###### Step 2: Create service key for retrieving connection information for GFSH cli
+***Step 2:*** Create service key for retrieving connection information for GFSH cli
 
 ```
 cf create-service-key s1p-workshop-cloudcache devkey
 ```
 
-###### Step 3: Retrieve url for Cloud Cache cli (GFSH) and corresponding credentials
+***Step 3:*** Retrieve url for Cloud Cache cli (GFSH) and corresponding credentials
 
 ```
 cf service-key s1p-workshop-cloudcache devkey
 ```
 
-###### Step 4: Retrieve Management Dashboard URL (Pulse) of cloud-cache instance from Service key and use the Operator credentials for logging into the Dashboard
+***Step 4:*** Retrieve Management Dashboard URL (Pulse) of cloud-cache instance from Service key and use the Operator credentials for logging into the Dashboard
 
 ```
 Add service-key output
@@ -46,7 +46,7 @@ Download the Cli from PivNet - https://network.pivotal.io. Version of software P
 
 Note: Version of Cloud Cache Cli needs to match that of Cloud Cache Cluster.
 
-###### Step 1: Login into to Cloud Cache cli (GFSH) using connection information from service key
+***Step 1:*** Login into to Cloud Cache cli (GFSH) using connection information from service key
 
 ```
 connect --use-http=true --url=https://<gfsh-url> --skip-ssl-validation --user=cluster_operator --password=*******
@@ -54,7 +54,7 @@ connect --use-http=true --url=https://<gfsh-url> --skip-ssl-validation --user=cl
 
 Note: If `go-router` is configured only to use https connection. Cloud Cache Cli will ask for SSL/TLS information. If using Public certs, we can skip providing keystore and truststore information.
 
-###### Step 2: create Cloud Cache regions on cluster
+***Step 2:*** create Cloud Cache regions on cluster
 
 ```
 create region --name=Pizza --type=PARTITION_REDUNDANT

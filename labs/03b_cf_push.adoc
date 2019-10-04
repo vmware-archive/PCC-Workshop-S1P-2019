@@ -1,14 +1,14 @@
 ## Deploy Pizza Store App on PCF
 
 
-#### Step 1: build the project
+***Step 1:*** build the project
 
 ```
 ./mvnw clean package
 
 ```
 
-#### Step 2: create a manifest.yml for deploying the app on to PCF. We need to bind this app to Cloud Cache service pre-created in your org/space.
+***Step 2:*** create a manifest.yml for deploying the app on to PCF. We need to bind this app to Cloud Cache service pre-created in your org/space.
 
 ```
 ---
@@ -20,7 +20,7 @@ applications:
   - s1p-workshop-cloudcache
 ```
 
-#### Step 3: Deploy the app on PCF
+***Step 3:*** Deploy the app on PCF
 
 ```
 cf push

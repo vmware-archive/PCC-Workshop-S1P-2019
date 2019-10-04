@@ -6,15 +6,6 @@ This workshop will provide a step by step guide for implementing set of APIs bac
 
 ### Pizza Store App supports following endpoints:
 
-- `GET /ping`
-
-    Responds with an HTTP status code of `200 - OK` and an HTTP message body
-    of "PONG!" if the app is running correctly.
-
-    ```
-    $ curl -k https://APP-URL/ping
-    ```
-
 - `GET /preheatOven`
 
     Loads the `Pizza` region with three pre-defined pizzas.
@@ -61,23 +52,6 @@ This workshop will provide a step by step guide for implementing set of APIs bac
 
     ```
     curl -k https://APP-URL/pizzas/order/myCustomPizza?sauce=MARINARA&toppings=CHEESE,PEPPERONI,MUSHROOM
-    ```
-
-- `GET /pizzas/pestoOrder/{name}`
-
-    Bakes a pesto sauce pizza with chicken, cherry tomatoes, and parmesan
-    cheese toppings.
-
-    ```
-    curl -k https://APP-URL/pizzas/pestoOrder/myPestoPizza
-    ```
-
-- `GET /cleanSlate`
-
-    Removes all data from the `Pizza` and `Name` regions.
-
-    ```
-    $  curl -k https://APP-URL/cleanSlate
     ```
 
 ### Pizza sauces are one of:

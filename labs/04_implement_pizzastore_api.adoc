@@ -1,22 +1,17 @@
 ## Implement Pizza Store APIs
 
-***Controller Implementation:*** Create a REST controller `AppController.java`. All the necessary repositories which we created in earlier steps need to be Autowired in this controller
+***Controller Implementation:*** Review the controller `AppController.java`. All the necessary repositories which we created in earlier steps need to be Autowired in this controller
 
 ```java
 @RestController
-@Log
 public class AppController {
-
-    private final NameRepository nameRepository;
 
     private final PizzaRepository pizzaRepository;
 
-    public AppController(NameRepository nameRepository, PizzaRepository pizzaRepository) {
+    public AppController(PizzaRepository pizzaRepository) {
 
-        this.nameRepository = nameRepository;
         this.pizzaRepository = pizzaRepository;
     }
-
 }
 ```
 
@@ -52,9 +47,13 @@ public Object getPizzas() {
 
     return nullSafeIterable(pizzas).iterator().hasNext() ? pizzas : "<h1>No Pizzas Found</h1>";
 }
+
+private <T> Iterable<T> nullSafeIterable(Iterable<T> iterable) {
+    return iterable != null ? iterable : Collections::emptyIterator;
+}
 ```
 
-*** API 3:*** Implement **_/pizzas/{name}_** API to return a given Pizza by Name
+***API 3:*** Implement **_/pizzas/{name}_** API to return a given Pizza by Name
 
 In this controller, we'll be using ***pizzaRepository.findById()*** to get data stored in key/value pair from Pizza region
 
@@ -69,18 +68,69 @@ public Object getNamedPizza(@PathVariable("name") String pizzaName) {
 
 ```
 
-*** API 4:*** Implement **_/cleanSlate** API to clear all data in the region
+***API 4:*** API for pre-loading Pizza orders
 
-In this controller, we'll be using ***pizzaRepository.deleteAll()*** to get delete all the key value pairs from the Pizza Region
+
 
 ```java
-@GetMapping("/cleanSlate")
-public String cleanSlate() {
+@RequestMapping("/preheatOven")
+public ResponseEntity<Object> preheatOven() {       
 
-    this.pizzaRepository.deleteAll();
+    Pizza plainPizza = makePlainPizza();
+    Pizza fancyPizza = makeFancyPizza();
+    Pizza superFancyPizza = makeSuperFancyPizza("test");
 
-    return "<h1>OVEN EMPTY!</h1>";
+    this.pizzaRepository.save(plainPizza);
+    this.pizzaRepository.save(fancyPizza);
+    this.pizzaRepository.save(superFancyPizza);
+
+    log.info("Finished baking pizzas");
+
+    Optional<Pizza> pizza = this.pizzaRepository.findById("plain");
+
+    if (!pizza.isPresent()) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    if (!pizza.filter(it -> it.uses(Pizza.Sauce.TOMATO)).isPresent()) {
+
+        log.info(String.format("I ordered tomato sauce; Pizza was [%s]",
+            pizza.map(Pizza::toString).orElse(null)));
+
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    if (!pizza.filter(it -> it.has(Pizza.Topping.CHEESE)).isPresent()) {
+
+        log.info(String.format("Where's my cheese? Pizza was [%s]",
+            pizza.map(Pizza::toString).orElse(null)));
+
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    return new ResponseEntity<>("<h1>OVEN HEATED!</h1>", HttpStatus.OK);
 }
+
+private Pizza makeFancyPizza() {
+
+return Pizza.named("fancy")
+    .having(Pizza.Sauce.ALFREDO)
+    .with(Pizza.Topping.ARUGULA)
+    .with(Pizza.Topping.CHICKEN);
+}
+
+private Pizza makePlainPizza() {
+return Pizza.named("plain").with(Pizza.Topping.CHEESE);
+}
+
+private Pizza makeSuperFancyPizza(String name) {
+
+return Pizza.named(name)
+    .having(Pizza.Sauce.PESTO)
+    .with(Pizza.Topping.CHICKEN)
+    .with(Pizza.Topping.PARMESAN)
+    .with(Pizza.Topping.CHERRY_TOMATOES);
+}
+
 ```
 
-***Note:*** Implementation for additional REST APIs for ping(), preheatOven(), pestoOrder(String) are supplied in the initial project

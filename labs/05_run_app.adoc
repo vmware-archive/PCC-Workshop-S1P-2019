@@ -1,13 +1,13 @@
 ## Deploy Pizza Store App on PCF
 
-#### Step 1: build the project
+***Step 1:*** build the project
 
 ```
 ./mvnw clean package
 
 ```
 
-#### Step 2: Deploy the app on PCF
+***Step 2:*** Deploy the app on PCF
 
 ```
 cf push
@@ -28,15 +28,6 @@ $ cf apps
 
 to acquire your app's APP-URL.
 Use the APP-URL with the following endpoints:
-
-- `GET /ping`
-
-    Responds with an HTTP status code of `200 - OK` and an HTTP message body
-    of "PONG!" if the app is running correctly.
-
-    ```
-    $ curl -k https://APP-URL/ping
-    ```
 
 - `GET /preheatOven`
 
