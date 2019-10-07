@@ -47,20 +47,20 @@ cf marketplace -s p-cloudcache
 ***Step 1:*** Validate Cloud Cache service instance is pre created in your org/space
 
 ```
-cf service s1p-workshop-cloudcache
+cf services
 
 ```
 
 ***Step 2:*** Create service key for retrieving connection information for GFSH cli
 
 ```
-cf create-service-key s1p-workshop-cloudcache devkey
+cf create-service-key <service-name> devkey
 ```
 
 ***Step 3:*** Retrieve url for Cloud Cache cli (GFSH) and corresponding credentials
 
 ```
-cf service-key s1p-workshop-cloudcache devkey
+cf service-key <service-name> devkey
 ```
 
 ***Step 4:*** Retrieve Management Dashboard URL (Pulse) of cloud-cache instance from Service key and use the Operator credentials for logging into the Dashboard

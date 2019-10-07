@@ -5,4 +5,4 @@ applications:
   buildpack: java_buildpack_offline
   random-route: true
   services:
-  - s1p-workshop-cloudcache
+  - <service-name>
