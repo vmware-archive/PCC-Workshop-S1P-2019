@@ -14,10 +14,12 @@
 
 package io.pivotal.data.pizzastoreapi.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.lang.NonNull;
 
 public class Name {
 
+	@Id
 	@NonNull
 	private String name = "";
 
