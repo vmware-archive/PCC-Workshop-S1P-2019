@@ -6,6 +6,8 @@
 @RestController
 public class AppController {
 
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AppController.class);
+
     private final PizzaRepository pizzaRepository;
 
     public AppController(PizzaRepository pizzaRepository) {

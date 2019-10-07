@@ -1,7 +1,7 @@
 ## Implement Native pub/sub eventing using Cloud Cache Continuous Queries
 
 
-***Step 1:*** Listen to All the events that are getting generated in /Pizza region
+***Step 1:*** Listen to All the events that are getting generated in /Pizza region. Navigate to `io.pivotal.data.pizzastoreapi.cq.PizzaQueries` and add the below code
 
 ```
 @ContinuousQuery(name = "AllPizzaOrder", query="SELECT * FROM /Pizza")
@@ -10,9 +10,15 @@ public void handleAnyPizzaOrder(CqEvent event) {
 }
 ```
 
-***Step 2:*** Listen to specific events getting generated in /Pizza region using OQL and insert the event into /Name region
+***Step 2:*** Listen to specific events getting generated in /Pizza region using OQL and insert the event into /Name region. Navigate to `io.pivotal.data.pizzastoreapi.cq.PizzaQueries` and add the below code
 
 ```
+private final NameRepository nameRepository;
+
+public PizzaQueries(NameRepository nameRepository) {
+    this.nameRepository = nameRepository;
+}
+
 @ContinuousQuery(name = "PestoPizzaOrdersQuery", durable = true,
     query = "SELECT * FROM /Pizza p WHERE p.sauce.name = 'PESTO'")
 public void handlePestoPizzaOrder(CqEvent event) {
