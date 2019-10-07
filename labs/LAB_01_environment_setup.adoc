@@ -1,0 +1,134 @@
+## Environment Setup
+
+
+### Working Directory
+
+***Step 1:*** Clone the Workshop git repo
+
+```
+git clone git@github.com:Pivotal-Field-Engineering/PCC-Workshop-S1P-2019.git
+```
+
+or
+
+```
+git clone https://github.com/Pivotal-Field-Engineering/PCC-Workshop-S1P-2019
+```
+
+***Step 2:*** Navigate to Working Directory
+
+```
+cd PCC-Workshop-S1P-2019/
+```
+
+### cf-cli Login 
+
+```
+cf login -a https://api.sys.lakeforest.cf-app.com --skip-ssl-validation
+```
+
+***Login Information:*** UserName will be provided to you in the workshop ***U<No>@pivotal.io***
+
+***Example:***
+
+```
+Email> u1@pivotal.io
+```
+
+### Cloud Cache Instance
+Services can be created through Apps Manager Marketplace or by executing cf cli commands
+
+###### Display available Cloud Cache plans
+
+```
+cf marketplace -s p-cloudcache
+```
+
+***Step 1:*** Validate Cloud Cache service instance is pre created in your org/space
+
+```
+cf service s1p-workshop-cloudcache
+
+```
+
+***Step 2:*** Create service key for retrieving connection information for GFSH cli
+
+```
+cf create-service-key s1p-workshop-cloudcache devkey
+```
+
+***Step 3:*** Retrieve url for Cloud Cache cli (GFSH) and corresponding credentials
+
+```
+cf service-key s1p-workshop-cloudcache devkey
+```
+
+***Step 4:*** Retrieve Management Dashboard URL (Pulse) of cloud-cache instance from Service key and use the Operator credentials for logging into the Dashboard
+
+```
+{
+ "distributed_system_id": "1",
+ "gfsh_login_string": "connect --url=https://cloudcache-1ef97439-3b54-4d4d-abb5-c726fa0ed936.sys.lakeforest.cf-app.com/gemfire/v1 --user=cluster_operator_FDpmtSZVyxT4GYYHHW0nYg --password=wF57qdW0rCnuWCwiZOiKTA --skip-ssl-validation",
+ "locators": [
+  "b392c67b-557c-49b7-acf2-9a3e92b23f5b.locator-server.lakeforest-services-subnet.service-instance-1ef97439-3b54-4d4d-abb5-c726fa0ed936.bosh[55221]",
+  "8d6ab34c-e843-43cf-a723-cda46ee4f1e3.locator-server.lakeforest-services-subnet.service-instance-1ef97439-3b54-4d4d-abb5-c726fa0ed936.bosh[55221]",
+  "e4dd6dd0-0280-4ff5-b82b-46dbbd691266.locator-server.lakeforest-services-subnet.service-instance-1ef97439-3b54-4d4d-abb5-c726fa0ed936.bosh[55221]"
+ ],
+ "urls": {
+  "gfsh": "https://cloudcache-1ef97439-3b54-4d4d-abb5-c726fa0ed936.sys.lakeforest.cf-app.com/gemfire/v1",
+  "pulse": "https://cloudcache-1ef97439-3b54-4d4d-abb5-c726fa0ed936.sys.lakeforest.cf-app.com/pulse"
+ },
+ "users": [
+  {
+   "password": "Ulo5VeyTCQuOPLSv8ghLGg",
+   "roles": [
+    "readonly"
+   ],
+   "username": "readonly_LQxcUUmt6J315aVaVhVSA"
+  },
+  {
+   "password": "wF57qdW0rCnuWCwiZOiKTA",
+   "roles": [
+    "cluster_operator"
+   ],
+   "username": "cluster_operator_FDpmtSZVyxT4GYYHHW0nYg"
+  },
+  {
+   "password": "adCPpJ3mL4DjaqhL8vNqqQ",
+   "roles": [
+    "developer"
+   ],
+   "username": "developer_bhMVFiEet28MxyAl2ALbFQ"
+  }
+ ],
+ "wan": {}
+}
+```
+
+***Note***: With Spring Boot Data Cloud Cache, it is not necessary to create Regions using operator Tool in development mode. We will take advantage of spring annotations in our code to create regions on the server side. 
+
+## Optional
+
+### Setup Cloud Cache Cli (GFSH)
+
+Download the Cli from PivNet - https://network.pivotal.io. Version of software Pivotal GemFire 9.8.3
+
+
+Note: Version of Cloud Cache Cli needs to match that of Cloud Cache Cluster.
+
+***Step 1:*** Login into to Cloud Cache cli (GFSH) using connection information from service key
+
+```
+connect --use-http=true --url=https://<gfsh-url> --skip-ssl-validation --user=cluster_operator --password=*******
+```
+
+Note: If `go-router` is configured only to use https connection. Cloud Cache Cli will ask for SSL/TLS information. If using Public certs, we can skip providing keystore and truststore information.
+
+***Step 2:*** create Cloud Cache regions on cluster
+
+```
+create region --name=Pizza --type=PARTITION_REDUNDANT
+create region --name=Name --type=PARTITION_REDUNDANT
+```
+
+###### Step 3: Access pulse using connection information from service key 

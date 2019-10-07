@@ -1,9 +1,8 @@
 ## Spring Data Repository setup for PCC
 
-***Step 1:*** Create a new package `io.pivotal.cloudcache.app.repo` and implement GemFire repositories for **_Name_** and **_Pizza_** domain objects
+***Step 1:*** Create a new package `io.pivotal.data.pizzastoreapi.repo` and implement GemFire repositories for **_Name_** and **_Pizza_** domain objects
 
 ```
-package io.pivotal.cloudcache.app.repository;
 
 @Repository
 public interface NameRepository extends CrudRepository<Name, String> {
@@ -13,7 +12,6 @@ public interface NameRepository extends CrudRepository<Name, String> {
 ```
 
 ```
-package io.pivotal.cloudcache.app.repository;
 
 @Repository
 public interface PizzaRepository extends CrudRepository<Pizza, String> {
@@ -32,7 +30,6 @@ public interface PizzaRepository extends CrudRepository<Pizza, String> {
 @EnableEntityDefinedRegions(basePackageClasses = Pizza.class)
 @EnableGemfireRepositories(basePackageClasses = NameRepository.class)
 @UseMemberName("PizzaStore-API")
-@Profile("client")
 public class CloudCacheClientConfig {
 
 

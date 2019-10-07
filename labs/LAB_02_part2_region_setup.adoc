@@ -36,7 +36,6 @@ public class Name {
 @EnableClusterConfiguration(useHttp = true, requireHttps = false)
 @EnableEntityDefinedRegions(basePackageClasses = Pizza.class)
 @UseMemberName("PizzaStore-API")
-@Profile("client")
 public class CloudCacheClientConfig {
 
 

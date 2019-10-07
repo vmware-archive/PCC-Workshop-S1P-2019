@@ -3,4 +3,4 @@ applications:
 - name: pizza-store-api
   path: target/pizza-store-api-completed-0.0.1-SNAPSHOT.jar
   services:
-  - s1p-workshop-cloudcache
+  - s1p-workshop-cloudcach

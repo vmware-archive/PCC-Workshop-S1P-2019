@@ -4,11 +4,11 @@ Let's incrementally build pizza store app which will showcase various features s
 
 Note: All the boilerplate code required for this demo app has been provided in Pizza-store-initial.
 
-***Step 1:*** Create Skeleton Cloud Cache Client project
+***Step 1:*** Import Skeleton Cloud Cache Client project into your IDE
 
-Download the ***pizza-store-api-initial*** project. For convenience we have configured the POM with required dependencies for Pivotal Cloud Cache. 
+Import the ***pizza-store-api-initial*** project into your IDE. For convenience we have configured the POM with required dependencies for Pivotal Cloud Cache. 
 
-Following are the dependency required for connecting to Cloud Cache and to enable unit test support
+Following are the dependency required for connecting to Cloud Cache and enable unit test support
 
 ###### Pivotal Cloud Cache Dependency
 
@@ -30,14 +30,13 @@ Following are the dependency required for connecting to Cloud Cache and to enabl
 
 ```
 
-***Step 2:*** configure Cloud Cache client with Spring Boot Data GemFire(SBDG) annotations
+***Step 2:*** configure Spring Boot application with `spring-cloudcache-starter` annotations
 
-Create a configuration file which transforms this boot app into Cloud Cache Client cache. `spring-geode-starter` enables autoreconfiguration support for Cloud Cache and creates Cloud Cache client connection pool.
+Create a configuration file which transforms this boot app into a Cloud Cache Client. `spring-cloudcache-starter` enables autoreconfiguration support for Cloud Cache and creates Cloud Cache client connection pool.
 
 ```
 @Configuration
 @UseMemberName("PizzaStore-API")
-@Profile("client")
 public class CloudCacheClientConfig {
 
 
