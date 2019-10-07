@@ -27,12 +27,12 @@ cd PCC-Workshop-S1P-2019/
 cf login -a https://api.sys.lakeforest.cf-app.com --skip-ssl-validation
 ```
 
-***Login Information:*** UserName will be provided to you in the workshop ***U<No>@pivotal.io***
+***Login Information:*** UserName will be provided to you in the workshop ***User<No>@pivotal.io***
 
 ***Example:***
 
 ```
-Email> u1@pivotal.io
+Email> User1@pivotal.io
 ```
 
 ### Cloud Cache Instance
