@@ -1,4 +1,4 @@
-# Pivotal Cloud Cache Developer Workshop
+<h1> VMware has ended active development of this project, this repository will no longer be updated.</h1><br># Pivotal Cloud Cache Developer Workshop
 
 This workshop will provide developers with getting started guide for enabling Spring Boot applications with Pivotal Cloud Cache for data caching. Purpose of the workshop is to walk-through enterprise features of Cloud Cache and susbsequtly enabling these features in a Spring boot app. 
 
